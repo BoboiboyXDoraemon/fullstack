@@ -5,15 +5,20 @@ import Login from './view/Login'
 import Users from './view/Users'
 import {Provider} from './Context'
 import {useBeforeUnload} from 'react-use'
-//import 
+import lf from 'localforage' 
 const App = () => {
     const [dt, setDt] = useState({})
     useEffect(()=>{
-        console.log("Start")
+        const getData = async () =>{
+            const dbt = await lf.getItem('database')
+            if(dbt) await setDt(dbt)
+        }
+        getData()
     },[])
-    useBeforeUnload(()=>{
-        console.log("BeforeUnload")
-    })
+    useBeforeUnload( async() =>{
+            await lf.setItem("database",dt)
+        }
+    )
     return <Provider value={{dt,setDt}}>
 <Routes>
     <Route path='/' element = {<Home />}/>
