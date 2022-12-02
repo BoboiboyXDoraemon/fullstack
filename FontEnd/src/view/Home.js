@@ -3,13 +3,14 @@ import {Link} from 'react-router-dom'
 import useSWR from 'swr'
 import axios from 'axios'
 import {useValue} from '../Context'
-import {Box,Button, Avatar} from '@mui/material'
+import {Box,Button, Avatar, Card, CardMedia, Typography} from '@mui/material'
+import { margin } from '@mui/system'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
 const Home = () => {
     const {dt,setDt} = useValue()
-    const { data, error } = useSWR('https://nodejs-fake-api.herokuapp.com/products', fetcher)
+    const { data, error } = useSWR('https://3000-boboiboyxdora-fullstack-foq4c3pdb2g.ws-us77.gitpod.io/', fetcher)
     
     if (error) return <h1>error: {error.message}</h1>
     if (!data) return <h1>Loading...</h1>
@@ -22,13 +23,16 @@ const Home = () => {
         <Button onClick={()=>{setDt({})}}>Logout</Button>
         </Box> : <Link to="/login">Login</Link>
         }
-    <div>
+   <Box sx={{display:"flex", flexDirection:"row", flexWrap:"wrap"}}>
         {
-            data.map((item, index)=> <div key={index}>
-                <h4>{item.name}</h4>
-            </div>)
+            data.map((item, index)=> <Card key={index} sx={{border:"1px dashed black", margin: 2, width:200, alignItems:"center", justifyContent:"center"}}>
+                <CardMedia image={item.img} sx={{width:100,height:100}}/>
+                <Typography variant="h5">{item.name}</Typography>
+                <Typography variant="h4">{item.price}$</Typography>
+                <Button variant="contained">AddTocard</Button>
+            </Card>)
         }
-    </div>
+    </Box>
 </div>}
 
 
