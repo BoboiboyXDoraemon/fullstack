@@ -10,7 +10,7 @@ const fetcher = url => axios.get(url).then(res => res.data)
 
 const Home = () => {
     const {dt,setDt} = useValue()
-    const { data, error } = useSWR('https://3000-boboiboyxdora-fullstack-foq4c3pdb2g.ws-us77.gitpod.io/', fetcher)
+    const { data, error } = useSWR('https://3000-boboiboyxdora-fullstack-d2aimb15n42.ws-us77.gitpod.io/', fetcher)
     
     if (error) return <h1>error: {error.message}</h1>
     if (!data) return <h1>Loading...</h1>
@@ -23,9 +23,10 @@ const Home = () => {
         <Button onClick={()=>{setDt({})}}>Logout</Button>
         </Box> : <Link to="/login">Login</Link>
         }
-   <Box sx={{display:"flex", flexDirection:"row", flexWrap:"wrap"}}>
+    <Box sx={{display:"flex", flexDirection:"row", flexWrap:"wrap"}}>
         {
-            data.map((item, index)=> <Card key={index} sx={{border:"1px dashed black", margin: 2, width:200, alignItems:"center", justifyContent:"center"}}>
+            data.map((item, index)=> <Card key={index} sx={{border:"1px dashed black", margin: 2, 
+            width:200, alignItems:"center", justifyContent:"center"}}>
                 <CardMedia image={item.img} sx={{width:100,height:100}}/>
                 <Typography variant="h5">{item.name}</Typography>
                 <Typography variant="h4">{item.price}$</Typography>
@@ -34,6 +35,5 @@ const Home = () => {
         }
     </Box>
 </div>}
-
 
 export default Home

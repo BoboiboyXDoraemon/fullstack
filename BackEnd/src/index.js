@@ -1,43 +1,31 @@
-const express = require("express")
+require('dotenv').config()
+const express = require('express')
+const cors = require('cors')
+const { request } = require('express')
 const app = express()
-const cors = require("cors")
-
+console.log()
+const {db, findOne} = require('./db.js');
 app.use(cors())
 app.use(express.json())
-const db={
-    user :[
-        {
-            id:0,
-            username:"admin",
-            password:"admin"
-        },
-        {
-            id:1,
-            username:"huy",
-            password:"konodioda"
-        }
-    ],
-    products:[
-        {
-            id:0,
-            name:"Broccoli",
-            price:3.99,
-            img:"https://domf5oio6qrcr.cloudfront.net/medialibrary/5390/h1218g16207258089583.jpg",
-        },
-        {
-            id:1,
-            name:"Broccoli",
-            price:3.99,
-            img:"https://domf5oio6qrcr.cloudfront.net/medialibrary/5390/h1218g16207258089583.jpg",
-        }
-    ]
-}
+const jwt = require('jsonwebtoken')
 
-app.get("/",(req,res)=>{
-    res.json(db.products)
+
+app.get("/", (request, respond)=>{
+    respond.json(db.products)
 })
 
-app.get("/users",(req,res)=>{
-    res.json(db.user)
+app.get("/users",(request, respond)=>{
+    respond.json(db.users)
+})
+
+app.post("/login", (request,respond) =>{
+    const user = findOne({username: request.body.username})
+    if (user && user.password === request.body.password) {
+        const token = jwt.sign(user.username,process.env.TOKEN_SECRET)
+        respond.json(...user,token);
+    } else {
+        respond.status(404).json({error: "not user"})
+    }
+
 })
 app.listen(3000)
