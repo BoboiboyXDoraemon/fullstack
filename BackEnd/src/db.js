@@ -2,10 +2,14 @@ const db = {
     users: [
         {id:0,
         username:"admin",
-        password:"admin"},
+        password:"admin",
+        avatar:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaR3y_b__QUXdFpiycdQlmG9PVjch9Bj0eV_fRmEMLNM6DIjbfDUqiAF0NQjPperMStmM&usqp=CAU"
+        },
          {id:1,
         username:"long",
-        password:"longpass"}
+        password:"longpass",
+        avatar:"http://vegetable-shop.surge.sh/img/broccoli.jpg"
+        }
     ],
     products:[
         {

@@ -9,7 +9,7 @@ const Users = () => {
     const {dt,setDt} = useValue()
     const fetcher = url => axios.get(url, { headers: { Authorization: `Bearer ${dt.accessToken}` }}).then(res => res.data)
 
-    const { data, error } = useSWR('https://nodejs-fake-api.herokuapp.com/users', fetcher)
+    const { data, error } = useSWR('https://3000-boboiboyxdora-fullstack-84pdlxy28cq.ws-us78.gitpod.io/users', fetcher)
     
     if (error) return <h1>error: {error.message}</h1>
     if (!data) return <h1>Loading...</h1>
@@ -20,7 +20,7 @@ const Users = () => {
         <Avatar src={dt.avatar}/>
         <h5>{dt.username}</h5> 
         </Box> : <Link to="/login">Login</Link>
-        }
+    }
     <div>
         {
             data.map((item, index)=> <div key={index}>
