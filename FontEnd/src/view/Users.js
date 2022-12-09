@@ -7,7 +7,7 @@ import {Box,Button, Avatar} from '@mui/material'
 
 const Users = () => {
     const {dt,setDt} = useValue()
-    const fetcher = url => axios.get(url, { headers: { Authorization: `Bearer ${dt.accessToken}` }}).then(res => res.data)
+    const fetcher = url => axios.get(url, { headers: { authorization: `Bearer ${dt.token}` }}).then(res => res.data)
 
     const { data, error } = useSWR('https://3000-boboiboyxdora-fullstack-84pdlxy28cq.ws-us78.gitpod.io/users', fetcher)
     
